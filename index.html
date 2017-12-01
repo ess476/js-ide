@@ -6,6 +6,7 @@
         	document.getElementById("recv-msg").innerHTML = e.data.res;
 
         	document.getElementById("run").disabled = false
+        	document.getElementById("clearOutput").disabled = false
         	document.getElementById("stop").disabled = true
     	}
 
@@ -15,6 +16,7 @@
         	document.getElementById("recv-msg").innerHTML = e.message;
 
         	document.getElementById("run").disabled = false
+        	document.getElementById("clearOutput").disabled = false
         	document.getElementById("stop").disabled = true
         }
 
@@ -29,6 +31,7 @@
 
         	document.getElementById("recv-msg").innerHTML = "<img src='https://code.pyret.org/img/pyret-spin.gif' height='5%' width='5%'/> Running";
         	document.getElementById("run").disabled = true
+        	document.getElementById("clearOutput").disabled = true
         	document.getElementById("stop").disabled = false
         	elm = document.getElementById("js-to-send");
         	msg = elm.value;
@@ -43,6 +46,7 @@
         	worker.terminate();
         	document.getElementById("recv-msg").innerHTML = "Terminated";
         	document.getElementById("run").disabled = false
+        	document.getElementById("clearOutput").disabled = false
         	document.getElementById("stop").disabled = true
 
         	worker = new Worker('worker.js');

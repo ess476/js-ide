@@ -1,0 +1,62 @@
+<html>
+    <head>
+    <script>
+    	function handleMsg(e)
+    	{
+        	document.getElementById("recv-msg").innerHTML = e.data.res;
+
+        	document.getElementById("run").disabled = false
+        	document.getElementById("stop").disabled = true
+    	}
+
+    	function handleErr(e)
+        {
+        	//alert(e.message);
+        	document.getElementById("recv-msg").innerHTML = e.message;
+
+        	document.getElementById("run").disabled = false
+        	document.getElementById("stop").disabled = true
+        }
+
+        var worker = new Worker('worker.js');
+        worker.onmessage = handleMsg;
+        worker.onerror = handleErr;
+
+
+
+        function sendMsg()
+        {
+
+        	document.getElementById("recv-msg").innerHTML = "Running";
+        	document.getElementById("run").disabled = true
+        	document.getElementById("stop").disabled = false
+        	elm = document.getElementById("js-to-send");
+        	msg = elm.value;
+
+        	worker.postMessage({
+        		'msg': msg
+        	});
+        }
+
+        function terminate()
+        {
+        	worker.terminate();
+        	document.getElementById("recv-msg").innerHTML = "Terminated";
+        	document.getElementById("run").disabled = false
+        	document.getElementById("stop").disabled = true
+
+        	worker = new Worker('worker.js');
+        	worker.onmessage = handleMsg;
+        	worker.onerror = handleErr;
+        }
+
+    </script>
+    </head>
+
+    <p id="recv-msg">No output yet...</p>
+    <hr>
+    <textarea id="js-to-send" rows="25" cols="80" name="msg" placeholder="JS CODE"></textarea><br>
+    <input id="run" type="button" value="Run" onclick="sendMsg()">
+    <input id="stop" type="button" value="Stop" onclick="terminate()">
+
+</html>

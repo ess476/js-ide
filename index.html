@@ -50,7 +50,13 @@
         	worker.onerror = handleErr;
         }
 
+        function clearOutput()
+        {
+        	document.getElementById("recv-msg").innerHTML = "No output yet...";
+        }
+
     </script>
+    <style>textarea { font-size: 18px; }</style>
     </head>
 
     <p id="recv-msg">No output yet...</p>
@@ -58,5 +64,6 @@
     <textarea id="js-to-send" rows="25" cols="80" name="msg" placeholder="JS CODE"></textarea><br>
     <input id="run" type="button" value="Run" onclick="sendMsg()">
     <input id="stop" type="button" value="Stop" onclick="terminate()">
+    <input id="clear" type="button" value="clear Output" onclick="clearOutput()"> 
 
 </html>
